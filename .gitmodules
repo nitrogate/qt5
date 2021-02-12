@@ -18,10 +18,11 @@
 	status = essential
 [submodule "qtactiveqt"]
 	depends = qtbase
+	recommends = qttools
 	path = qtactiveqt
 	url = ../qtactiveqt.git
 	branch = dev
-	status = ignore
+	status = additionalLibrary
 [submodule "qtmultimedia"]
 	depends = qtbase
 	recommends = qtdeclarative
@@ -99,12 +100,6 @@
 	url = ../qtfeedback.git
 	branch = master
 	status = ignore
-[submodule "qtdocgallery"]
-	depends = qtdeclarative
-	path = qtdocgallery
-	url = ../qtdocgallery.git
-	branch = master
-	status = ignore
 [submodule "qtpim"]
 	depends = qtdeclarative
 	path = qtpim
@@ -127,23 +122,24 @@
 	status = addon
 [submodule "qt3d"]
 	depends = qtbase
-	recommends = qtdeclarative qtimageformats qtgamepad qtshadertools
+	recommends = qtdeclarative qtshadertools qttools
 	path = qt3d
 	url = ../qt3d.git
 	branch = dev
-	status = ignore
+	status = additionalLibrary
 [submodule "qtimageformats"]
 	depends = qtbase
+	recommends = qttools
 	path = qtimageformats
 	url = ../qtimageformats.git
 	branch = dev
-	status = addon
+	status = additionalLibrary
 [submodule "qtgraphicaleffects"]
 	depends = qtdeclarative
 	path = qtgraphicaleffects
 	url = ../qtgraphicaleffects.git
 	branch = dev
-	status = essential
+	status = ignore
 [submodule "qtquickcontrols"]
 	depends = qtdeclarative
 	recommends = qtgraphicaleffects
@@ -188,14 +184,14 @@
 	path = qtandroidextras
 	url = ../qtandroidextras.git
 	branch = dev
-	status = addon
+	status = ignore
 [submodule "qtwebsockets"]
 	depends = qtbase
 	recommends = qtdeclarative
 	path = qtwebsockets
 	url = ../qtwebsockets.git
 	branch = dev
-	status = addon
+	status = ignore
 [submodule "qtwebchannel"]
 	depends = qtbase
 	recommends = qtdeclarative qtwebsockets
@@ -240,25 +236,25 @@
 	status = ignore
 [submodule "qtcharts"]
 	depends = qtbase
-	recommends = qtdeclarative qtmultimedia
+	recommends = qtdeclarative qtmultimedia qttools
 	path = qtcharts
 	url = ../qtcharts.git
 	branch = dev
-	status = ignore
+	status = additionalLibrary
 [submodule "qtdatavis3d"]
 	depends = qtbase
-	recommends = qtdeclarative qtmultimedia
+	recommends = qtdeclarative qtmultimedia qttools
 	path = qtdatavis3d
 	url = ../qtdatavis3d.git
 	branch = dev
-	status = ignore
+	status = additionalLibrary
 [submodule "qtvirtualkeyboard"]
 	depends = qtbase qtdeclarative qtsvg
-	recommends = qtmultimedia qtquickcontrols
+	recommends = qtmultimedia qtquickcontrols qttools
 	path = qtvirtualkeyboard
 	url = ../qtvirtualkeyboard.git
 	branch = dev
-	status = addon
+	status = additionalLibrary
 [submodule "qtgamepad"]
 	depends = qtbase
 	recommends = qtdeclarative
@@ -268,10 +264,11 @@
 	status = ignore
 [submodule "qtscxml"]
 	depends = qtbase qtdeclarative
+	recommends = qttools
 	path = qtscxml
 	url = ../qtscxml.git
 	branch = dev
-	status = ignore
+	status = additionalLibrary
 [submodule "qtspeech"]
 	depends = qtbase
 	recommends = qtdeclarative qtmultimedia
@@ -281,10 +278,11 @@
 	status = ignore
 [submodule "qtnetworkauth"]
 	depends = qtbase
+	recommends = qttools
 	path = qtnetworkauth
 	url = ../qtnetworkauth.git
 	branch = dev
-	status = addon
+	status = additionalLibrary
 [submodule "qtremoteobjects"]
 	depends = qtbase
 	recommends = qtdeclarative
@@ -301,10 +299,11 @@
 	status = ignore
 [submodule "qtlottie"]
 	depends = qtbase qtdeclarative
+	recommends = qttools
 	path = qtlottie
 	url = ../qtlottie.git
 	branch = dev
-	status = ignore
+	status = additionalLibrary
 [submodule "qtquicktimeline"]
 	depends = qtbase qtdeclarative
 	path = qtquicktimeline
@@ -324,8 +323,26 @@
 	branch = dev
 	status = addon
 [submodule "qt5compat"]
-	depends = qtbase
+	depends = qtbase qtdeclarative
 	path = qt5compat
 	url = ../qt5compat.git
 	branch = dev
 	status = deprecated
+[submodule "qtcoap"]
+	depends = qtbase qttools
+	path = qtcoap
+	url = ../qtcoap.git
+	branch = dev
+	status = additionalLibrary
+[submodule "qtmqtt"]
+	depends = qtbase qtdeclarative qttools
+	path = qtmqtt
+	url = ../qtmqtt.git
+	branch = dev
+	status = additionalLibrary
+[submodule "qtopcua"]
+	depends = qtbase qtdeclarative qtquickcontrols2 qttools
+	path = qtopcua
+	url = ../qtopcua.git
+	branch = dev
+	status = additionalLibrary

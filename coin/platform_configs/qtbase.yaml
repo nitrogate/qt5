@@ -1,62 +1,17 @@
 Version: 2
+Include: [
+    cmake_platforms.yaml,
+    macos-developer-build-tests.yaml
+]
 Configurations:
 -
-    Template: 'qtci-linux-Ubuntu-18.04-x86_64'
-    Target os: 'QEMU'
-    Target arch: 'armv7'
-    Compiler: 'GCC'
-    Features: ['DisableTests']
-    Environment variables: ['TARGET_CONFIGURE_ARGS=-DBUILD_EXAMPLES=OFF -DCMAKE_TOOLCHAIN_FILE={{.Env.QEMUARMV7_TOOLCHAIN_SYSROOT}}/../x86_64-pokysdk-linux/usr/share/cmake/OEToolchainConfig.cmake -DQT_FEATURE_system_harfbuzz=OFF', 'QT_YOCTO_ENVSETUP={{.Env.QEMUARMV7_TOOLCHAIN_SYSROOT}}/../../environment-setup-armv7at2hf-neon-poky-linux-gnueabi', "QT_CMAKE_DIR=/opt/cmake-3.17.2/bin"]
-    Configure arguments: '-DBUILD_EXAMPLES=OFF -DOPENSSL_ROOT_DIR={{.Env.OPENSSL_HOME}}'
--
-    Template: 'qtci-linux-openSUSE-15.1-x86_64'
-    Target os: 'WebAssembly'
-    Compiler: 'GCC'
-    Features: ['DisableTests', 'UseLegacyInstructions']
-    Configure arguments: '-opensource -confirm-license -verbose -prefix /home/qt/work/install -release -developer-build -static -nomake tests -nomake examples -no-pch -no-feature-thread -no-dbus -no-headersclean -no-ssl -no-warnings-are-errors -xplatform wasm-emscripten'
--
-    Template: 'qtci-macos-10.14-x86_64'
-    Compiler: 'Clang'
-    Features: ['UseLegacyInstructions']
-    Configure arguments: '-opensource -confirm-license -verbose -prefix /Users/qt/work/install -developer-build -release -no-pch -no-framework -qtnamespace TestNamespace -nomake tests -nomake examples -I/usr/local/opt/openssl/include'
--
-    Template: 'qtci-linux-Ubuntu-18.04-x86_64'
-    Compiler: 'GCC'
-    Configure arguments: '-DBUILD_EXAMPLES=ON -DFEATURE_developer_build=ON -DOPENSSL_ROOT_DIR={{.Env.OPENSSL_HOME}}'
--
-    Template: 'qtci-linux-openSUSE-15.1-x86_64'
-    Compiler: 'GCC'
-    Configure arguments: '-DBUILD_EXAMPLES=OFF -DBUILD_SHARED_LIBS=OFF -DOPENSSL_ROOT_DIR={{.Env.OPENSSL_HOME}}'
--
-    Template: 'qtci-macos-10.14-x86_64'
-    Compiler: 'Clang'
-    Configure arguments: '-DBUILD_EXAMPLES=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo -DFEATURE_framework=ON -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode11.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET=10.14 -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl'
--
-    Template: 'qtci-windows-10-x86_64-15'
-    Compiler: 'MSVC2019'
-    Configure arguments: '-G"Ninja Multi-Config" -DCMAKE_CONFIGURATION_TYPES="RelWithDebInfo;Debug" -DBUILD_EXAMPLES=OFF -DBUILD_WITH_PCH=OFF -DOPENSSL_ROOT_DIR={{.Env.OPENSSL_INCLUDE_x64}}\..'
--
-    Template: 'qtci-linux-RHEL-7.6-x86_64'
-    Compiler: 'GCC'
-    Configure arguments: '-DBUILD_EXAMPLES=OFF -DOPENSSL_ROOT_DIR={{.Env.OPENSSL_HOME}}'
--
-    Template: 'qtci-linux-RHEL-7.6-x86_64'
+    Template: 'qtci-linux-CentOS-8.3-x86_64-50'
     Target os: 'Android_ANY'
-    Target arch: 'arm64'
+    Target arch: 'x86'
     Compiler: 'GCC'
     Target compiler: 'Clang'
-    Configure arguments: '-DBUILD_EXAMPLES=OFF -DOPENSSL_ROOT_DIR={{.Env.OPENSSL_HOME}}'
-    Environment variables: ['TARGET_CONFIGURE_ARGS=-DBUILD_EXAMPLES=OFF -DCMAKE_TOOLCHAIN_FILE={{.Env.ANDROID_NDK_ROOT}}/build/cmake/android.toolchain.cmake -DANDROID_SDK_ROOT={{.Env.ANDROID_SDK_HOME}} -DANDROID_ABI=arm64-v8a -DCMAKE_C_COMPILER_FRONTEND_VARIANT=GNU -DCMAKE_CXX_COMPILER_FRONTEND_VARIANT=GNU -DOPENSSL_ROOT_DIR={{.Env.OPENSSL_ANDROID_HOME}}']
--
-    Template: 'qtci-macos-10.14-x86_64'
-    Target os: 'IOS_ANY'
-    Target arch: 'arm64'
-    Compiler: 'Clang'
-    Target compiler: 'Clang'
-    Configure arguments: '-DBUILD_EXAMPLES=OFF -DCMAKE_OSX_SYSROOT:PATH=/Applications/Xcode11.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET=10.14 -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl'
-    Environment variables: ['TARGET_CONFIGURE_ARGS=-DCMAKE_BUILD_TYPE=Release -DBUILD_EXAMPLES=OFF -DCMAKE_SYSTEM_NAME=iOS -DQT_FORCE_SIMULATOR_AND_DEVICE=ON']
--
-    Template: 'qtci-windows-7-x86-3'
-    Compiler: 'Mingw'
-    Configure arguments: '-DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=RelWithDebInfo -DFEATURE_separate_debug_info=ON -DBUILD_EXAMPLES=OFF -DOPENSSL_ROOT_DIR={{.Env.OPENSSL_INCLUDE_x86}}\.. -DFEATURE_system_zlib=OFF'
-    Environment variables: ['Path={{.Env.MINGW810_i686}}\bin;{{.Env.Path}}']
+    Platform dependency: 'CentOS-8.3-host'
+    Features: ['Packaging', 'Sccache', 'AndroidTestRun']
+    Environment variables: [
+        'TARGET_CONFIGURE_ARGS=-DBUILD_EXAMPLES=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_TOOLCHAIN_FILE={{.Env.ANDROID_NDK_ROOT}}/build/cmake/android.toolchain.cmake -DANDROID_SDK_ROOT={{.Env.ANDROID_SDK_HOME}} -DANDROID_ABI=x86 -DCMAKE_C_COMPILER_FRONTEND_VARIANT=GNU -DCMAKE_CXX_COMPILER_FRONTEND_VARIANT=GNU -DOPENSSL_ROOT_DIR={{.Env.OPENSSL_ANDROID_HOME}} -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache',
+        'NON_QTBASE_TARGET_CONFIGURE_ARGS=-DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache']

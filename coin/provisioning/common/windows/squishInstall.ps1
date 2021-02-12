@@ -36,12 +36,12 @@
 # This script will pre-installed squish package for Windows.
 # Squish is need by Release Test Automation (RTA)
 
-$version = "6.5.2"
-$qtBranch = "514x"
+$version = "6.7-20210112-1612"
+$qtBranch = "60x"
 $targetDir = "C:\Utils\squish"
 $squishPackage = "C:\Utils\rta_squish"
-$squishUrl = "\\ci-files01-hki.intra.qt.io\provisioning\squish\jenkins_build"
-$licenseUrl = "\\ci-files01-hki.intra.qt.io\provisioning\squish\coin"
+$squishUrl = "\\ci-files01-hki.intra.qt.io\provisioning\squish\jenkins_build\stable"
+$licenseUrl = "\\ci-files01-hki.intra.qt.io\provisioning\squish\coin\515x"
 
 # Squish license
 $licensePackage = ".squish-3-license"
@@ -60,17 +60,19 @@ $OSVersion = (get-itemproperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\Curren
 if ($OSVersion -eq "Windows 10 Enterprise") {
     $winVersion = "win10"
     if (Is64BitWinHost) {
-        $sha1 = "9262d3b749483094024c74986f93e9340afbdb62"
+        $sha1 = "628bb65cf515d08df388b0dc4d5b403e4c6657b2"
     } else {
-        $sha1 = "0763b344afa327e6c374971492021c5e923be892"
+        $sha1 = "9c0fc186605522ac0ac11066c10c3f3e8a95a705"
+        #Remove special handling when all packages are in same dir, exception now for win10 x86->the archive had to be rebuild
+        $squishUrl = "\\ci-files01-hki.intra.qt.io\provisioning\squish\jenkins_build\stable\6.6.1_rerun"
     }
 } elseif ($OSVersion -eq "Windows 7 Enterprise") {
     $winVersion = "win7"
-    $sha1 = "01b3529459da948cfde319d60becc666da0e1c4d"
+    $sha1 = "ec890c16bb671ae79b093ba81e6567d2780f85a2"
 }
 $squishArchive = "prebuild-squish-$version-$qtBranch-$winVersion-$arch.zip"
 
-Copy-Item "\\ci-files01-hki.intra.qt.io\provisioning\squish\jenkins_build\stable\$squishArchive" "C:\Utils"
+Copy-Item "$squishUrl\$squishArchive" "C:\Utils"
 Verify-Checksum "C:\Utils\$squishArchive" $sha1
 Extract-7Zip "C:\Utils\$squishArchive" "C:\Utils"
 Rename-Item "$squishPackage" "$targetDir"
